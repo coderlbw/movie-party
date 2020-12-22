@@ -66,7 +66,16 @@ function getUserByName(name)
 {
     const userObj = JSON.stringify(users.filter(user => user.name == name));
      console.log(`getUserByName: ${userObj}`);
-     return users.filter(user => user.name == name);
+     return users.filter(user => user.name == name)[0];
+}
+
+/* function: getUserByID(id) */
+
+function getUserByID(id)
+{
+    const userObj = JSON.stringify(users.filter(user => user.id == id));
+     console.log(`getUserByID: ${userObj}`);
+     return users.filter(user => user.id == id)[0];
 }
 
 
@@ -75,5 +84,6 @@ function getUserByName(name)
     removeUser,
     getUsersInRoom,
     getOtherUserInRoom,
-    getUserByName
+    getUserByName,
+    getUserByID
  };

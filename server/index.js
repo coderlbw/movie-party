@@ -8,7 +8,7 @@ const router = require('./router')
  * import users.js
  * import  rooms.js
  */
-const {addUser,removeUser,getUsersInRoom,getOtherUserInRoom,getUserByName} = require('./users');
+const {addUser,removeUser,getUsersInRoom,getOtherUserInRoom,getUserByName,getUserByID} = require('./users');
 const {getActiveRooms} = require('./rooms');
 
 const app = express()
@@ -62,6 +62,18 @@ io.on('connection', socket => {
         let rooms = getActiveRooms(io);
        // return callback(rooms.includes(room));
        return callback(true);
+    });
+
+    socket.on('sendMessage',( msg , callback) => {
+        console.log(`message: ${msg}`);
+        const user= getUserByID(socket.id);
+        console.log(`message: ${msg} from user ${JSON.stringify(user)}`);
+        io.to(user.room).emit('message', {text:msg,user:user});
+        callback();
+    });
+
+    socket.on('sendSync', ({id,...videoProps}, callback)  => {
+        console.log(`sendSync: for id: ${id} and ${JSON.stringify(...videoProps)}` );
     });
 })
 

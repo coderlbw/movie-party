@@ -51,12 +51,29 @@ function removeUser(id)
  INPUT: NEW USER ID, room 
  user filter
  */
+function getOtherUserInRoom(id,room)
+ {
+    const userObj = JSON.stringify(users.filter(user => (user.room == room && user.id != id)));
+    console.log(`getOtherUserInRoom: ${userObj} `);
+    return users.filter(user => (user.room == room && user.id != id));
+
+ }
 
 
+ /* function: getUserByName(name) */
+
+function getUserByName(name)
+{
+    const userObj = JSON.stringify(users.filter(user => user.name == name));
+     console.log(`getUserByName: ${userObj}`);
+     return users.filter(user => user.name == name);
+}
 
 
  module.exports = {
     addUser,
     removeUser,
-    getUsersInRoom
+    getUsersInRoom,
+    getOtherUserInRoom,
+    getUserByName
  };

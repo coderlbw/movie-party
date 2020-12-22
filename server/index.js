@@ -8,7 +8,7 @@ const router = require('./router')
  * import users.js
  * import  rooms.js
  */
-const {addUser,removeUser,getUsersInRoom} = require('./users');
+const {addUser,removeUser,getUsersInRoom,getOtherUserInRoom,getUserByName} = require('./users');
 const {getActiveRooms} = require('./rooms');
 
 const app = express()
@@ -32,7 +32,7 @@ io.on('connection', socket => {
 
       console.log(`room: ${room}`);
         if (getUsersInRoom(user.room).length > 1) {
-            const otherUser = getOtherUserInRoom(room, user);
+            const otherUser = getOtherUserInRoom(user.id,room);
              if (otherUser) socket.to(otherUser.id).emit('getSync', { id: user.id });
         }
 
